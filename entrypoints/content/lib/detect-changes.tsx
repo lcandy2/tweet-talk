@@ -29,7 +29,7 @@ export function detectChanges() {
     articleParentElement.append(talkElement);
     ReactDOM.createRoot(talkElement).render(
         <React.StrictMode>
-            <TweetCard />
+          <TweetCard element={articleCoreContent}/>
         </React.StrictMode>,
     );
   })

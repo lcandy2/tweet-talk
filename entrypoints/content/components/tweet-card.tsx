@@ -1,4 +1,22 @@
-export function TweetCard() {
+import {useEffect} from "react";
+import {extractData, TweetData} from "@/entrypoints/content/lib/data-analysis.ts";
+
+interface TweetCardProps {
+  element: Element;
+}
+
+export function TweetCard({element}: TweetCardProps) {
+  const [tweetData, setTweetData] = useState<TweetData | null>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const data = extractData(element);
+      if (data) {
+        setTweetData(data);
+      }
+    }, 0);
+  }, []);
+
   return (
       <>
         <div className="css-175oi2r r-18kxxzh r-1wron08 r-onrtq4 r-1awozwy">
