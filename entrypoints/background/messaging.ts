@@ -1,4 +1,4 @@
-import { defineExtensionMessaging } from '@webext-core/messaging';
+import { defineExtensionMessaging } from "@webext-core/messaging";
 
 interface BackgroundFetchMessageProps {
   url: string | URL | globalThis.Request;
@@ -10,4 +10,5 @@ interface ProtocolMap {
   backgroundFetch(msg: BackgroundFetchMessageProps): void;
 }
 
-export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
+export const { sendMessage, onMessage } =
+  defineExtensionMessaging<ProtocolMap>();
