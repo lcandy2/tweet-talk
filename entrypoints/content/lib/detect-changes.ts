@@ -1,4 +1,5 @@
-import TweetCard from "@/entrypoints/content/components/tweet-card.vue";
+import ReactDOM from "react-dom/client";
+import {TweetCard} from "@/entrypoints/content/components/tweet-card.tsx";
 
 export function detectChanges() {
   const timelineDiv = document.querySelector('div.css-175oi2r.r-f8sm7e.r-13qz1uu.r-1ye8kvj > section > div.css-175oi2r');
@@ -22,8 +23,11 @@ export function detectChanges() {
     }
     const talkElement = document.createElement('div');
     talkElement.setAttribute('class', 'css-175oi2r r-18u37iz tweet-talk');
-    const app = createApp(TweetCard);
-    app.mount(talkElement);
+    // const app = createApp(TweetCard);
+    // app.mount(talkElement);
     articleParentElement.append(talkElement);
+    // exportDatas(articleCoreContent);
+    const root = ReactDOM.createRoot(talkElement);
+    root.render(<TweetCard />);
   })
 }

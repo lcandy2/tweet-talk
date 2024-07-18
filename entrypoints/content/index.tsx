@@ -5,7 +5,9 @@ export default defineContentScript({
   async main() {
     console.log('Hello content.');
 
-    const callback = (mutationsList, observer) => {
+    localStorage.removeItem('tweetTalk-dataList')
+
+    const callback = (mutationsList: MutationRecord[], observer: MutationObserver) => {
       // Check for the specific element 'timelineDiv'
       detectChanges();
     };
