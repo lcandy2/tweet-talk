@@ -100,8 +100,8 @@ export function TweetCard({ element }: TweetCardProps) {
             {(!isFinished) && <TweetCardSkeleton />}
             {repliedMessage.length !== 0 && repliedMessage.map((message: any, index) => (
               <>
-                {(index >= 1 && repliedMessage.length > 1) && <Separator key={`seprator-${index}`} />}
-                <TweetCardContent key={`content-${index}`} aiName={message.role} aiContent={message.reply} />
+                {(index >= 1 && repliedMessage.length > 1) && <Separator key={`seprator-${message.role}-${message.reply.slice(0,5)}-${index}`} />}
+                <TweetCardContent key={`content-${message.role}-${message.reply.slice(0,5)}-${index}`} aiName={message.role} aiContent={message.reply} />
               </>
             ))}
           </ShineBorder> : <section className="flex flex-row items-start p-3 gap-2 w-full"><p>暂无评论。</p></section>}
