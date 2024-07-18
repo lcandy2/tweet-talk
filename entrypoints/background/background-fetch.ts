@@ -1,13 +1,13 @@
 import { onMessage } from "@/entrypoints/background/messaging.ts";
 
 export function backgroundFetch() {
-  console.log("backgroundFetch");
-  onMessage("backgroundFetch", (message) => {
-    const msg = message.data;
-    return new Promise<void>((resolve, reject) => {
-      fetch(msg.url, msg.options)
-        .then((data) => resolve())
-        .catch((error) => reject(error));
+  onMessage("backgroundFetch", (message): Promise<Response> => {
+    const { url, options } = message.data;
+    return new Promise<any>((resolve, reject) => {
+      fetch(url, options)
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch((error) => reject(error));
     });
   });
 }

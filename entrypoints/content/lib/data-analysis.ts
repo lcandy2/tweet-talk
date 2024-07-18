@@ -23,7 +23,7 @@ export function extractData(element: Element): TweetData {
   const time =
     element
       .querySelector("div.css-175oi2r.r-18u37iz.r-1q142lx > a > time")
-      ?.getAttribute("datetime") || "";
+      ?.getAttribute("datetime") || "time";
   const images: string[] = [];
   const imageElements = document.querySelectorAll(
     'div[aria-label="Image"].css-175oi2r.r-1mlwlqe.r-1udh08x.r-417010.r-1p0dtai.r-1d2f490.r-u8s1d.r-zchlnj.r-ipm5af > img',

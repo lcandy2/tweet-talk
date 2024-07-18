@@ -6,8 +6,7 @@ interface BackgroundFetchMessageProps {
 }
 
 interface ProtocolMap {
-  getStringLength(data: string): number;
-  backgroundFetch(msg: BackgroundFetchMessageProps): void;
+  backgroundFetch(msg: BackgroundFetchMessageProps): Promise<any>;
 }
 
 export const { sendMessage, onMessage } =

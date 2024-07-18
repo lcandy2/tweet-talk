@@ -28,6 +28,10 @@ export function detectChanges() {
     }
     const talkElement = document.createElement("div");
     talkElement.setAttribute("class", "css-175oi2r r-18u37iz tweet-talk");
+    talkElement.setAttribute(
+      "style",
+      "padding-top: 10px; padding-inline: 10px;",
+    );
     // const app = createApp(TweetCard);
     // app.mount(talkElement);
     articleParentElement.append(talkElement);
