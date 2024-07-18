@@ -6,14 +6,14 @@ import {
 import ShineBorder from "@/entrypoints/content/components/shine-border.tsx";
 import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
-import { Card } from "@/ui/card.tsx";
+import { Card } from "@/entrypoints/content/components/ui/card.tsx";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/ui/avatar.tsx";
-import { Separator } from "@/ui/separator.tsx";
-import { Skeleton } from "@/ui/skeleton.tsx";
+} from "@/entrypoints/content/components/ui/avatar.tsx";
+import { Separator } from "@/entrypoints/content/components/ui/separator.tsx";
+import { Skeleton } from "@/entrypoints/content/components/ui/skeleton.tsx";
 import { localExtStorage } from "@webext-core/storage";
 import { getImgName } from "@/entrypoints/content/lib/get-img-name.ts";
 
@@ -48,7 +48,6 @@ export function TweetCard({ element }: TweetCardProps) {
             return;
           }
         }
-
         try {
           const res = await sendMessage("backgroundFetch", {
             url: API_AI_TWEET,
@@ -137,7 +136,7 @@ interface TweetCardContentProps {
   aiContent: string;
 }
 
-function TweetCardSkeleton() {
+export function TweetCardSkeleton() {
   return (
     <section className="flex flex-row items-start p-3 gap-2 w-full">
       <Skeleton
@@ -146,13 +145,13 @@ function TweetCardSkeleton() {
       />
       <div className="flex flex-col gap-2">
         <Skeleton className="h-4 w-[100px]" />
-        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
       </div>
     </section>
   );
 }
 
-function TweetCardContent({
+export function TweetCardContent({
   aiName,
   aiAvatar,
   aiContent,
