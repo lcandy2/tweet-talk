@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import {
   extractData,
-  TweetData
+  TweetData,
 } from "@/entrypoints/content/lib/data-analysis.ts";
 import ShineBorder from "@/entrypoints/content/components/shine-border.tsx";
 import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
 import { Card } from "@/entrypoints/content/components/card.tsx";
-import { Avatar, AvatarFallback, AvatarImage } from "@/entrypoints/content/components/avatar.tsx";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/entrypoints/content/components/avatar.tsx";
 import { Separator } from "@/entrypoints/content/components/separator.tsx";
 import { Skeleton } from "@/entrypoints/content/components/skeleton.tsx";
 import { localExtStorage } from "@webext-core/storage";
@@ -51,7 +55,7 @@ export function TweetCard({ element }: TweetCardProps) {
             options: {
               method: "POST",
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 tweet_uuid: tweetData.tweetId,
@@ -59,9 +63,9 @@ export function TweetCard({ element }: TweetCardProps) {
                 tweet_created_time: tweetData.time,
                 author_nick_name: tweetData.author,
                 author_id: tweetData.authorId,
-                wanted_roles: []
-              })
-            }
+                wanted_roles: [],
+              }),
+            },
           });
           console.log(res);
           if (res && JSON.stringify(res).includes("reply")) {
@@ -94,17 +98,34 @@ export function TweetCard({ element }: TweetCardProps) {
 
   return (
     <div>
-      <Card className="flex flex-col items-start w-full">
-        {!noReplies ?
-          <ShineBorder color={["#A07CFE", "#FE8FB5", "#FFBE7B"]} className="flex flex-col items-start w-full">
-            {(!isFinished) && <TweetCardSkeleton />}
-            {repliedMessage.length !== 0 && repliedMessage.map((message: any, index) => (
-              <>
-                {(index >= 1 && repliedMessage.length > 1) && <Separator key={`seprator-${message.role}-${message.reply.slice(0,5)}-${index}`} />}
-                <TweetCardContent key={`content-${message.role}-${message.reply.slice(0,5)}-${index}`} aiName={message.role} aiContent={message.reply} />
-              </>
-            ))}
-          </ShineBorder> : <section className="flex flex-row items-start p-3 gap-2 w-full"><p>暂无评论。</p></section>}
+      <Card className="flex flex-col items-start w-full mb-2">
+        {!noReplies ? (
+          <ShineBorder
+            color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+            className="flex flex-col items-start w-full"
+          >
+            {!isFinished && <TweetCardSkeleton />}
+            {repliedMessage.length !== 0 &&
+              repliedMessage.map((message: any, index) => (
+                <>
+                  {index >= 1 && repliedMessage.length > 1 && (
+                    <Separator
+                      key={`seprator-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+                    />
+                  )}
+                  <TweetCardContent
+                    key={`content-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+                    aiName={message.role}
+                    aiContent={message.reply}
+                  />
+                </>
+              ))}
+          </ShineBorder>
+        ) : (
+          <section className="flex flex-row items-start p-3 gap-2 w-full">
+            <p>暂无评论。</p>
+          </section>
+        )}
       </Card>
     </div>
   );
@@ -119,7 +140,10 @@ interface TweetCardContentProps {
 function TweetCardSkeleton() {
   return (
     <section className="flex flex-row items-start p-3 gap-2 w-full">
-      <Skeleton className="h-10 w-10 rounded-full" style={{ borderRadius: "9999px" }} />
+      <Skeleton
+        className="h-10 w-10 rounded-full"
+        style={{ borderRadius: "9999px" }}
+      />
       <div className="flex flex-col gap-2">
         <Skeleton className="h-4 w-[100px]" />
         <Skeleton className="h-4 w-[250px]" />
@@ -128,11 +152,15 @@ function TweetCardSkeleton() {
   );
 }
 
-function TweetCardContent({ aiName, aiAvatar, aiContent }: TweetCardContentProps) {
+function TweetCardContent({
+  aiName,
+  aiAvatar,
+  aiContent,
+}: TweetCardContentProps) {
   return (
     <section className="flex flex-row items-start p-3 gap-2 w-full">
       <Avatar>
-        <AvatarImage src={getImgName(aiName || '')} />
+        <AvatarImage src={getImgName(aiName || "")} />
         <AvatarFallback>{aiName}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col">
