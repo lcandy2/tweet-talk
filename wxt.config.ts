@@ -5,6 +5,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   manifest: {
-    host_permissions: ["<all_urls>"],
-  },
+    web_accessible_resources: [{
+      resources: ["*.png"],
+      matches: ["<all_urls>"]
+    }],
+    permissions: ["storage"],
+    host_permissions: ["<all_urls>"]
+  }
 });

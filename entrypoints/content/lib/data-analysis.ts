@@ -1,5 +1,8 @@
+import { v5 as uuidv5 } from 'uuid';
+
 export interface TweetData {
   tweetId: string;
+  tweetUUID: string;
   content: string;
   author: string;
   authorId: string;
@@ -32,9 +35,12 @@ export function extractData(element: Element): TweetData {
     images.push(imageElement.getAttribute("src") || "");
   });
   const tweetId = `tweet-${authorId}-${time}-${content.slice(0, 10)}`;
+  const NAMESPACE_UUID = '1b671a64-40d5-491e-99b0-da01ff1f3341';
+  const tweetUUID = uuidv5(tweetId, NAMESPACE_UUID);
 
   const data: TweetData = {
     tweetId,
+    tweetUUID,
     content,
     author,
     authorId,

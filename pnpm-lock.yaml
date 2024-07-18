@@ -17,6 +17,9 @@ importers:
       '@webext-core/messaging':
         specifier: ^1.4.0
         version: 1.4.0
+      '@webext-core/storage':
+        specifier: ^1.2.0
+        version: 1.2.0
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -32,6 +35,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.6)
+      uuid:
+        specifier: ^10.0.0
+        version: 10.0.0
     devDependencies:
       '@babel/plugin-transform-typescript':
         specifier: ^7.24.8
@@ -45,6 +51,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
+      '@types/uuid':
+        specifier: ^10.0.0
+        version: 10.0.0
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.1(vite@5.3.4(@types/node@20.14.11))
@@ -823,6 +832,9 @@ packages:
   '@types/stylis@4.2.5':
     resolution: {integrity: sha512-1Xve+NMN7FWjY14vLoY5tL3BVEQ/n42YLwaqJIPYhotZ9uBHt87VceMwWQpzmdEt2TNXIorIFG+YeCUUW7RInw==}
 
+  '@types/uuid@10.0.0':
+    resolution: {integrity: sha512-7gqG38EyHgyP1S+7+xomFtL+ZNHcKv6DwNaCZmJmo1vgMugyF3TCnXVg4t1uk89mLNwnLtnY3TpOpCOyp1/xHQ==}
+
   '@types/webextension-polyfill@0.10.7':
     resolution: {integrity: sha512-10ql7A0qzBmFB+F+qAke/nP1PIonS0TXZAOMVOxEUsm+lGSW6uwVcISFNa0I4Oyj0884TZVWGGMIWeXOVSNFHw==}
 
@@ -846,6 +858,9 @@ packages:
 
   '@webext-core/messaging@1.4.0':
     resolution: {integrity: sha512-gzXQ13HfKR3Yrn9TnrvTC/5seA7uPFvaqxqNFBsFOOdSZa5LyXt58Rhym8BYXarkWUGp+fh8f6AYM3RYuNbS+A==}
+
+  '@webext-core/storage@1.2.0':
+    resolution: {integrity: sha512-XI86HJUhugVdAQZLcj3EH/rZv08ByVn2riX3YI4HCJ86NOH5K3OwGi0ClFa/kq5U5hIVDMG6hwOBwgEgI2G5GQ==}
 
   '@wxt-dev/module-react@1.1.0':
     resolution: {integrity: sha512-oR82AsBxIGB6nFAlv6F9Ne5pzV7ZXrBlZv+4fHq3X5xCF5/ckyr5heGAx6uM8OtURVxbfU5ikV9LHaV3Zt5Whg==}
@@ -2588,6 +2603,10 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  uuid@10.0.0:
+    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
+
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
@@ -3386,6 +3405,8 @@ snapshots:
 
   '@types/stylis@4.2.5': {}
 
+  '@types/uuid@10.0.0': {}
+
   '@types/webextension-polyfill@0.10.7': {}
 
   '@types/yauzl@2.10.3':
@@ -3417,6 +3438,10 @@ snapshots:
   '@webext-core/messaging@1.4.0':
     dependencies:
       serialize-error: 11.0.3
+      webextension-polyfill: 0.10.0
+
+  '@webext-core/storage@1.2.0':
+    dependencies:
       webextension-polyfill: 0.10.0
 
   '@wxt-dev/module-react@1.1.0(vite@5.3.4(@types/node@20.14.11))(wxt@0.18.14(@types/node@20.14.11)(rollup@4.18.1))':
@@ -5233,6 +5258,8 @@ snapshots:
       xdg-basedir: 5.1.0
 
   util-deprecate@1.0.2: {}
+
+  uuid@10.0.0: {}
 
   uuid@8.3.2: {}
 
