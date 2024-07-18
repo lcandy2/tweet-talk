@@ -8,6 +8,9 @@ import ShineBorder, {
 } from "@/entrypoints/content/components/shine-border.tsx";
 import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
+import { Card } from "@/entrypoints/content/components/card.tsx";
+import { Avatar, AvatarFallback, AvatarImage } from "@/entrypoints/content/components/avatar.tsx";
+import { Separator } from "@/entrypoints/content/components/separator.tsx";
 
 interface TweetCardProps {
   element: Element;
@@ -15,13 +18,13 @@ interface TweetCardProps {
 
 export function TweetCard({ element }: TweetCardProps) {
   const [tweetData, setTweetData] = useState<TweetData | null>(null);
-  const [repliedMessage, setRepliedMessage] = useState<string | null>(null);
+  const [repliedMessage, setRepliedMessage] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
       const data = extractData(element);
       if (data) {
-        setTweetData(data);
+        // setTweetData(data);
       }
     }, 0);
   }, []);
@@ -49,7 +52,7 @@ export function TweetCard({ element }: TweetCardProps) {
           });
           console.log(res);
           if (res) {
-            setRepliedMessage(res.results[0].reply);
+            setRepliedMessage(res.results);
           }
         } catch (e) {
           console.error(e);
@@ -60,9 +63,63 @@ export function TweetCard({ element }: TweetCardProps) {
     }
   }, [tweetData]);
 
+  // if (repliedMessage.length === 0) {
+  //   return null;
+  // }
+
   return (
-    <div className="contents group">
-      <ShineBorderCore color={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
+    <div>
+      <Card className="flex flex-col items-start w-full">
+        <ShineBorder color={["#A07CFE", "#FE8FB5", "#FFBE7B"]} className="flex flex-col items-start w-full">
+          <section className="flex flex-row items-start p-3 gap-2 w-full">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <p className="font-bold">Elon Mask</p>
+              <div>
+                <p>内容在这里</p>
+                <p>内容在这里</p>
+                <p>内容在这里</p>
+                <p>内容在这里</p>
+              </div>
+            </div>
+          </section>
+          <Separator />
+          <section className="flex flex-row items-start p-3 gap-2 w-full">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <p className="font-bold">Elon Mask</p>
+              <div>
+                <p>内容在这里</p>
+                <p>内容在这里</p>
+                <p>内容在这里</p>
+                <p>内容在这里</p>
+              </div>
+            </div>
+          </section>
+        </ShineBorder>
+      </Card>
+      {repliedMessage.length && repliedMessage.map((message: any, index) => (
+        <TweetCardContent key={index} aiName={message.role} aiContent={message.reply} />
+      ))}
+    </div>
+  );
+}
+
+interface TweetCardContentProps {
+  aiName?: string;
+  aiAvatar?: string;
+  aiContent: string;
+}
+
+function TweetCardContent({ aiName, aiAvatar, aiContent }: TweetCardContentProps) {
+  return (
+    <div className="css-175oi2r r-18u37iz">
       <div className="css-175oi2r r-18kxxzh r-1wron08 r-onrtq4 r-1awozwy">
         <div className="css-175oi2r" data-testid="Tweet-User-Avatar">
           <div className="css-175oi2r r-18kxxzh r-1wbh5a2 r-13qz1uu">
@@ -171,13 +228,11 @@ export function TweetCard({ element }: TweetCardProps) {
               <div className="css-175oi2r r-1wbh5a2 r-dnmrzs r-1ny4l3l">
                 <div
                   className="css-175oi2r r-1wbh5a2 r-dnmrzs r-1ny4l3l r-1awozwy r-18u37iz"
-                  id="id__mw190std7hh"
                   data-testid="User-Name"
                 >
                   <div className="css-175oi2r r-1awozwy r-18u37iz r-1wbh5a2 r-dnmrzs">
                     <div className="css-175oi2r r-1wbh5a2 r-dnmrzs">
                       <a
-                        href="/aheze0"
                         role="link"
                         className="css-175oi2r r-1wbh5a2 r-dnmrzs r-1ny4l3l r-1loqt21"
                       >
@@ -198,7 +253,7 @@ export function TweetCard({ element }: TweetCardProps) {
                                 className="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-poiln3"
                                 style={{ textOverflow: "unset" }}
                               >
-                                Tweet Talk
+                                {aiName}
                               </span>
                             </span>
                           </div>
@@ -215,16 +270,24 @@ export function TweetCard({ element }: TweetCardProps) {
                               style={{ textOverflow: "unset" }}
                             >
                               <svg
-                                viewBox="0 0 22 22"
-                                aria-label="Verified account"
-                                role="img"
-                                className="r-4qtqp9 r-yyyyoo r-1xvli5t r-bnwqim r-lrvibr r-m6rgpd r-1cvl2hr r-f9ja8p r-og9te1 r-3t4u6i"
-                                data-testid="icon-verified"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <g>
-                                  <path
-                                    d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
-                                </g>
+                                <rect
+                                  x="2"
+                                  y="2"
+                                  width="16"
+                                  height="16"
+                                  rx="5"
+                                  fill="#68BF80"
+                                />
+                                <path
+                                  d="M6.90825 13.5H5.85995L8.21542 6.95455H9.3564L11.7119 13.5H10.6636L8.81308 8.14347H8.76194L6.90825 13.5ZM7.08403 10.9368H10.4846V11.7678H7.08403V10.9368ZM13.6447 6.95455V13.5H12.6571V6.95455H13.6447Z"
+                                  fill="white"
+                                />
                               </svg>
                             </span>
                           </div>
@@ -254,12 +317,11 @@ export function TweetCard({ element }: TweetCardProps) {
               className="css-1jxf684 r-bcqeeo r-1ttztb7 r-qvutc0 r-poiln3"
               style={{ textOverflow: "unset" }}
             >
-              {JSON.stringify(repliedMessage)}
+              {JSON.stringify(aiContent)}
             </span>
           </div>
         </div>
       </div>
-      {/*</ShineBorder>*/}
     </div>
   );
 }

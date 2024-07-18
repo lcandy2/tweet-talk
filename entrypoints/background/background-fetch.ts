@@ -5,9 +5,9 @@ export function backgroundFetch() {
     const { url, options } = message.data;
     return new Promise<any>((resolve, reject) => {
       fetch(url, options)
-      .then((response) => response.json())
-      .then((data) => resolve(data))
-      .catch((error) => reject(error));
+        .then((response) => response.json())
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
     });
   });
 }
