@@ -6,14 +6,14 @@ import {
 import ShineBorder from "@/entrypoints/content/components/shine-border.tsx";
 import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
-import { Card } from "@/entrypoints/content/components/card.tsx";
+import { Card } from "@/ui/card.tsx";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/entrypoints/content/components/avatar.tsx";
-import { Separator } from "@/entrypoints/content/components/separator.tsx";
-import { Skeleton } from "@/entrypoints/content/components/skeleton.tsx";
+} from "@/ui/avatar.tsx";
+import { Separator } from "@/ui/separator.tsx";
+import { Skeleton } from "@/ui/skeleton.tsx";
 import { localExtStorage } from "@webext-core/storage";
 import { getImgName } from "@/entrypoints/content/lib/get-img-name.ts";
 
