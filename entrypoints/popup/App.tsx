@@ -72,14 +72,14 @@ function App() {
     <>
       <Card className="min-w-[320px]">
         <CardHeader>
-          <CardTitle>Tweet Card</CardTitle>
-          <CardDescription>输入内容，获得知名人士的点评。</CardDescription>
+          <CardTitle>Tweet Talk</CardTitle>
+          <CardDescription>输入内容，获得知名人士的锐评。</CardDescription>
         </CardHeader>
         <CardContent>
           <Textarea value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="在这里输入内容..." />
         </CardContent>
         <CardFooter>
-          <Button disabled={!inputValue} onClick={handleActionButtonClick}>获得点评！</Button>
+          <Button disabled={!inputValue} onClick={handleActionButtonClick}>获得锐评！</Button>
         </CardFooter>
       </Card>
 
