@@ -1,8 +1,8 @@
 {
   "name": "tweet-talk",
-  "description": "manifest.json description",
+  "description": "A browser extension that reviews tweets for you.",
   "private": true,
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "scripts": {
     "dev": "wxt",

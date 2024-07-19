@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   manifest: {
+    name: "Tweet Talk",
     web_accessible_resources: [
       {
         resources: ["*.png"],
