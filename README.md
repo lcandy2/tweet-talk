@@ -1,3 +1,2 @@
-# WXT + React
-
-This template should help get you started developing with React in WXT.
+# AI Twitter (Tweet Talk)
+Experience Twitter Like Never Before with Your AI Celebrity Companion!
