@@ -53,13 +53,16 @@ function App() {
           if (res && JSON.stringify(res).includes("reply")) {
             setRepliedMessage(res.results);
             setIsFinished(true);
+            setIsFetching(false);
           } else {
             setIsFinished(true);
+            setIsFetching(false);
             setNoReplies(true);
           }
         } catch (e) {
           console.error(e);
           setIsFinished(true);
+          setIsFetching(false);
           setNoReplies(true);
         }
       };
@@ -70,20 +73,34 @@ function App() {
 
   return (
     <>
-      <Card className="min-w-[320px]">
+      <Card className="min-w-[400px]">
         <CardHeader>
-          <CardTitle>Tweet Talk</CardTitle>
+          <CardTitle className="flex flex-row gap-2 items-center">
+            <div className="flex flex-row gap-2 grow items-center">
+              <img src="./icon/128.png" className="w-12 h-12" />
+              AI Tweet
+            </div>
+            <div className="flex flex-row gap-2 items-center">
+              <a href="https://x.com/AITweet_app" target="_blank" className="text-xs flex flex-row gap-0.5 items-center font-normal"><img src="./icon/twitter.svg" className="w-4 h-4" />@AITweet_app</a>
+              <a href="https://github.com/lcandy2/tweet-talk" target="_blank"><img src="./icon/github-light.svg" className="w-4 h-4" /></a>
+            </div>
+          </CardTitle>
           <CardDescription>输入内容，获得知名人士的锐评。</CardDescription>
         </CardHeader>
         <CardContent>
-          <Textarea value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="在这里输入内容..." />
+          <Textarea value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="在这里输入内容..." />
         </CardContent>
         <CardFooter>
-          <Button disabled={!inputValue} onClick={handleActionButtonClick}>获得锐评！</Button>
+          <Button disabled={!inputValue || isFetching} onClick={handleActionButtonClick}>
+            {isFetching ?
+              "锐评中..."
+              : "获得锐评！"}
+          </Button>
         </CardFooter>
       </Card>
 
-      {isFetching && <Card className="flex flex-col items-start w-full">
+      {(isFetching || isFinished) && <Card className="flex flex-col items-start w-full text-base">
         {!noReplies ? (
           <ShineBorder
             color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
@@ -105,6 +122,8 @@ function App() {
                   />
                 </>
               ))}
+            <p className="text-sm w-full font-light text-gray-400 text-end">presented by <a
+              href="https://github.com/lcandy2/tweet-talk" target="_blank">AI Tweet</a></p>
           </ShineBorder>
         ) : (
           <section className="flex flex-row items-start p-3 gap-2 w-full">
