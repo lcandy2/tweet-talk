@@ -1,5 +1,5 @@
 import { defineConfig } from "wxt";
-import react from "@vitejs/plugin-react";
+import removeConsole from "vite-plugin-remove-console";
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
@@ -9,10 +9,13 @@ export default defineConfig({
     web_accessible_resources: [
       {
         resources: ["*.png"],
-        matches: ["<all_urls>"],
+        matches: ["*://*.x.com/*", "*://*.twitter.com/*"],
       },
     ],
     permissions: ["storage"],
     host_permissions: ["<all_urls>"],
   },
+  vite: () => ({
+    plugins: [removeConsole()]
+  })
 });
