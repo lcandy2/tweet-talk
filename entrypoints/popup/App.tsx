@@ -79,6 +79,7 @@ function App() {
       <Card className="min-w-[400px]">
         <CardHeader>
           <CardTitle className="flex flex-row gap-2 items-center">
+            {import.meta.env.DEV && API_AI_TWEET}
             <div className="flex flex-row gap-2 grow items-center">
               <img src="./icon/128.png" className="w-12 h-12" />
               AI Tweet
