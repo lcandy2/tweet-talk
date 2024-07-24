@@ -119,7 +119,12 @@ export function TweetCard({ element }: TweetCardProps) {
                   />
                 </>
               ))}
-            <p className="text-sm w-full font-light text-gray-400 text-end">presented by <a href="https://github.com/lcandy2/tweet-talk" target="_blank">AI Tweet</a></p>
+            <p className="text-sm w-full font-light text-gray-400 text-end">
+              presented by{" "}
+              <a href="https://github.com/lcandy2/tweet-talk" target="_blank">
+                AI Tweet
+              </a>
+            </p>
           </ShineBorder>
         ) : (
           <section className="flex flex-row items-start p-3 gap-2 w-full">

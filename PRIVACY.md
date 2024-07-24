@@ -11,11 +11,13 @@ Our extension, AI Tweet, requests the following permissions from your browser:
 2. Host permissions: Used to access our backend API to retrieve comment data necessary for the extension's functionality.
 
 ### What we collect and store:
+
 - Temporarily cached responses from our AI model
 - User preferences and settings
 - Comment data retrieved from our backend API
 
 ### What we do NOT collect or store:
+
 - Personal identifying information
 - Browsing history
 - Login credentials

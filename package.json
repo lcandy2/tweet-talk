@@ -41,6 +41,7 @@
     "prettier": "3.3.3",
     "tailwindcss": "^3.4.6",
     "typescript": "^5.5.2",
+    "vite-plugin-javascript-obfuscator": "^3.1.0",
     "vite-plugin-remove-console": "^2.2.0",
     "wxt": "^0.18.10"
   },

@@ -6,7 +6,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/entrypoints/content/components/ui/card.tsx";
 import { Textarea } from "@/entrypoints/content/components/ui/textarea.tsx";
 import { Button } from "@/entrypoints/content/components/ui/button.tsx";
@@ -15,7 +15,10 @@ import { Separator } from "@/entrypoints/content/components/ui/separator.tsx";
 import { localExtStorage } from "@webext-core/storage";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
 import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
-import { TweetCardContent, TweetCardSkeleton } from "@/entrypoints/content/components/tweet-card.tsx";
+import {
+  TweetCardContent,
+  TweetCardSkeleton,
+} from "@/entrypoints/content/components/tweet-card.tsx";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
@@ -37,7 +40,7 @@ function App() {
             options: {
               method: "POST",
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 tweet_uuid: "custom",
@@ -45,9 +48,9 @@ function App() {
                 tweet_created_time: "now",
                 author_nick_name: "user",
                 author_id: "user",
-                wanted_roles: []
-              })
-            }
+                wanted_roles: [],
+              }),
+            },
           });
           console.log(res);
           if (res && JSON.stringify(res).includes("reply")) {
@@ -81,56 +84,75 @@ function App() {
               AI Tweet
             </div>
             <div className="flex flex-row gap-2 items-center">
-              <a href="https://x.com/AITweet_app" target="_blank" className="text-xs flex flex-row gap-0.5 items-center font-normal"><img src="./icon/twitter.svg" className="w-4 h-4" />@AITweet_app</a>
-              <a href="https://github.com/lcandy2/tweet-talk" target="_blank"><img src="./icon/github-light.svg" className="w-4 h-4" /></a>
+              <a
+                href="https://x.com/AITweet_app"
+                target="_blank"
+                className="text-xs flex flex-row gap-0.5 items-center font-normal"
+              >
+                <img src="./icon/twitter.svg" className="w-4 h-4" />
+                @AITweet_app
+              </a>
+              <a href="https://github.com/lcandy2/tweet-talk" target="_blank">
+                <img src="./icon/github-light.svg" className="w-4 h-4" />
+              </a>
             </div>
           </CardTitle>
           <CardDescription>输入内容，获得知名人士的锐评。</CardDescription>
         </CardHeader>
         <CardContent>
-          <Textarea value={inputValue} onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="在这里输入内容..." />
+          <Textarea
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="在这里输入内容..."
+          />
         </CardContent>
         <CardFooter>
-          <Button disabled={!inputValue || isFetching} onClick={handleActionButtonClick}>
-            {isFetching ?
-              "锐评中..."
-              : "获得锐评！"}
+          <Button
+            disabled={!inputValue || isFetching}
+            onClick={handleActionButtonClick}
+          >
+            {isFetching ? "锐评中..." : "获得锐评！"}
           </Button>
         </CardFooter>
       </Card>
 
-      {(isFetching || isFinished) && <Card className="flex flex-col items-start w-full text-base">
-        {!noReplies ? (
-          <ShineBorder
-            color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
-            className="flex flex-col items-start w-full"
-          >
-            {!isFinished && <TweetCardSkeleton />}
-            {repliedMessage.length !== 0 &&
-              repliedMessage.map((message: any, index) => (
-                <>
-                  {index >= 1 && repliedMessage.length > 1 && (
-                    <Separator
-                      key={`seprator-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+      {(isFetching || isFinished) && (
+        <Card className="flex flex-col items-start w-full text-base">
+          {!noReplies ? (
+            <ShineBorder
+              color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+              className="flex flex-col items-start w-full"
+            >
+              {!isFinished && <TweetCardSkeleton />}
+              {repliedMessage.length !== 0 &&
+                repliedMessage.map((message: any, index) => (
+                  <>
+                    {index >= 1 && repliedMessage.length > 1 && (
+                      <Separator
+                        key={`seprator-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+                      />
+                    )}
+                    <TweetCardContent
+                      key={`content-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+                      aiName={message.role}
+                      aiContent={message.reply}
                     />
-                  )}
-                  <TweetCardContent
-                    key={`content-${message.role}-${message.reply.slice(0, 5)}-${index}`}
-                    aiName={message.role}
-                    aiContent={message.reply}
-                  />
-                </>
-              ))}
-            <p className="text-sm w-full font-light text-gray-400 text-end">presented by <a
-              href="https://github.com/lcandy2/tweet-talk" target="_blank">AI Tweet</a></p>
-          </ShineBorder>
-        ) : (
-          <section className="flex flex-row items-start p-3 gap-2 w-full">
-            <p>暂无评论。</p>
-          </section>
-        )}
-      </Card>}
+                  </>
+                ))}
+              <p className="text-sm w-full font-light text-gray-400 text-end">
+                presented by{" "}
+                <a href="https://github.com/lcandy2/tweet-talk" target="_blank">
+                  AI Tweet
+                </a>
+              </p>
+            </ShineBorder>
+          ) : (
+            <section className="flex flex-row items-start p-3 gap-2 w-full">
+              <p>暂无评论。</p>
+            </section>
+          )}
+        </Card>
+      )}
     </>
   );
 }
