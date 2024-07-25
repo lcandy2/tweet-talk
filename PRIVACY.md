@@ -45,6 +45,6 @@ We may update our Privacy Statement from time to time. We will notify you of any
 
 ## Contact Us
 
-If you have any questions about this Privacy Statement, please contact us at: [Your Contact Information]
+If you have any questions about this Privacy Statement, please contact us at twitter: @AITweet_app
 
 Last updated: Jul 23 2024
