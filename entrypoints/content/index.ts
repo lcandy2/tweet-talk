@@ -1,4 +1,5 @@
 import { detectChanges } from "@/entrypoints/content/lib/detect-changes";
+import { injectMagicButton } from "@/entrypoints/content/lib/inject-magic-button";
 import "./app.css";
 
 export default defineContentScript({
@@ -9,6 +10,7 @@ export default defineContentScript({
     const callback = () => {
       // Check for the specific element 'timelineDiv'
       detectChanges();
+      injectMagicButton();
     };
 
     const observer = new MutationObserver(callback);
