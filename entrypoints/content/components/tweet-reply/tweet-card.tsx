@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
-import ShineBorder from "@/entrypoints/content/components/shine-border.tsx";
+import ShineBorder from "@/entrypoints/components/magicui/shine-border.tsx";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
-import { Card } from "@/entrypoints/content/components/ui/card.tsx";
+import { Card } from "@/entrypoints/components/ui/card.tsx";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/entrypoints/content/components/ui/avatar.tsx";
-import { Separator } from "@/entrypoints/content/components/ui/separator.tsx";
-import { Skeleton } from "@/entrypoints/content/components/ui/skeleton.tsx";
+} from "@/entrypoints/components/ui/avatar.tsx";
+import { Separator } from "@/entrypoints/components/ui/separator.tsx";
+import { Skeleton } from "@/entrypoints/components/ui/skeleton.tsx";
 import { localExtStorage } from "@webext-core/storage";
-import { API_AI_TWEET, extractTweetData, getImgName, TweetData } from "@/entrypoints/content/lib/tweet-reply";
+import {
+  API_AI_TWEET,
+  extractTweetData,
+  getImgName,
+  TweetData,
+} from "@/entrypoints/content/lib/tweet-reply";
 
 interface TweetCardProps {
   element: Element;
