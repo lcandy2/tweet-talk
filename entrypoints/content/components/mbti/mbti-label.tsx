@@ -3,7 +3,9 @@ import MbtiAnimatedGradientLabelButton from "@/entrypoints/content/components/mb
 export function MBTILabel() {
   return (
     <div className="!pe-2 css-175oi2r">
-      <MbtiAnimatedGradientLabelButton className="h-[24px]">ENFP</MbtiAnimatedGradientLabelButton>
+      <MbtiAnimatedGradientLabelButton className="h-[24px]">
+        ENFP
+      </MbtiAnimatedGradientLabelButton>
     </div>
   );
 }

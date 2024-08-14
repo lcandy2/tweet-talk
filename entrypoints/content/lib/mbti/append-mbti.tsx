@@ -18,10 +18,10 @@ function appendMBTILabel() {
   }
 
   // Create a new div element
-  const mbtiDiv = document.createElement('div');
-  mbtiDiv.id = 'ai-tweet-mbti-label';
-  mbtiDiv.style.display = 'content';
-  mbtiDiv.className = 'css-175oi2r';
+  const mbtiDiv = document.createElement("div");
+  mbtiDiv.id = "ai-tweet-mbti-label";
+  mbtiDiv.style.display = "content";
+  mbtiDiv.className = "css-175oi2r";
 
   // Find the target position and insert the new element
   const targetElement = nameDiv.children[0];
@@ -49,13 +49,13 @@ function appendMBTIContent() {
     return;
   }
 
-  targetDiv.style.marginBottom = '0px';
+  targetDiv.style.marginBottom = "0px";
 
   // Create a new div element
-  const mbtiDiv = document.createElement('div');
-  mbtiDiv.id = 'ai-tweet-mbti-content';
-  mbtiDiv.style.display = 'content';
-  mbtiDiv.className = 'css-175oi2r';
+  const mbtiDiv = document.createElement("div");
+  mbtiDiv.id = "ai-tweet-mbti-content";
+  mbtiDiv.style.display = "content";
+  mbtiDiv.className = "css-175oi2r";
 
   targetDiv.appendChild(mbtiDiv);
 
