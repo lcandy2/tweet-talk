@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  extractData,
-  TweetData,
-} from "@/entrypoints/content/lib/data-analysis.ts";
 import ShineBorder from "@/entrypoints/content/components/shine-border.tsx";
-import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
 import { Card } from "@/entrypoints/content/components/ui/card.tsx";
 import {
@@ -15,7 +10,7 @@ import {
 import { Separator } from "@/entrypoints/content/components/ui/separator.tsx";
 import { Skeleton } from "@/entrypoints/content/components/ui/skeleton.tsx";
 import { localExtStorage } from "@webext-core/storage";
-import { getImgName } from "@/entrypoints/content/lib/get-img-name.ts";
+import { API_AI_TWEET, extractTweetData, getImgName, TweetData } from "@/entrypoints/content/lib/tweet-reply";
 
 interface TweetCardProps {
   element: Element;
@@ -29,7 +24,7 @@ export function TweetCard({ element }: TweetCardProps) {
 
   useEffect(() => {
     setTimeout(() => {
-      const data = extractData(element);
+      const data = extractTweetData(element);
       if (data) {
         setTweetData(data);
       }

@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom/client";
 import React from "react";
-import { TweetCard } from "@/entrypoints/content/components/tweet-card.tsx";
+import { TweetCard } from "@/entrypoints/content/components/tweet-reply";
 
-export function detectChanges() {
+export function appendReplies() {
   const timelineDiv = document.querySelector(
     "div.css-175oi2r.r-f8sm7e.r-13qz1uu.r-1ye8kvj > section > div.css-175oi2r",
   );

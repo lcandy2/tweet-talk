@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { MagicButton } from '@/entrypoints/content/components/magic-button';
 import ShineBorder from '@/entrypoints/content/components/shine-border';
 import AnimatedGradientText from '@/entrypoints/content/components/magicui/animated-gradient-text';
-import { cn } from '@/entrypoints/content/lib/utils';
+import { cn } from '@/entrypoints/lib/utils.ts';
 import { extractTweetsWithScroll } from '@/entrypoints/content/lib/extract-tweets';
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
-import { API_AI_TWEET, API_DIFY, API_DIFY_SECRET } from "@/entrypoints/content/lib/config.ts";
+import { API_DIFY, API_DIFY_SECRET } from "@/entrypoints/content/lib/config.ts";
 
 export function injectMagicButton() {
   const profileDiv = document.querySelector('.css-175oi2r.r-18u37iz.r-1w6e6rj.r-6gpygo.r-14gqq1x');

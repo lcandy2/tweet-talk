@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { cn } from "@/entrypoints/content/lib/utils";
+import { cn } from "@/entrypoints/lib/utils.ts";
 
 export default function AnimatedGradientText({
   children,

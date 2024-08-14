@@ -1,4 +1,4 @@
-import { cn } from "@/entrypoints/content/lib/utils.ts";
+import { cn } from "@/entrypoints/lib/utils.ts";
 
 function Skeleton({
   className,

@@ -12,13 +12,9 @@ import { Textarea } from "@/entrypoints/content/components/ui/textarea.tsx";
 import { Button } from "@/entrypoints/content/components/ui/button.tsx";
 import ShineBorder from "@/entrypoints/content/components/shine-border.tsx";
 import { Separator } from "@/entrypoints/content/components/ui/separator.tsx";
-import { localExtStorage } from "@webext-core/storage";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
-import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
-import {
-  TweetCardContent,
-  TweetCardSkeleton,
-} from "@/entrypoints/content/components/tweet-card.tsx";
+import { API_AI_TWEET } from "@/entrypoints/content/lib/tweet-reply";
+import { TweetCardContent, TweetCardSkeleton } from "@/entrypoints/content/components/tweet-reply";
 
 function App() {
   const [inputValue, setInputValue] = useState("");

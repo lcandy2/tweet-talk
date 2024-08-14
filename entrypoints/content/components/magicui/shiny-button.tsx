@@ -2,7 +2,7 @@
 
 import { motion, type AnimationProps } from "framer-motion";
 
-import { cn } from "@/entrypoints/content/lib/utils";
+import { cn } from "@/entrypoints/lib/utils.ts";
 
 const animationProps = {
   initial: { "--x": "100%", scale: 0.8 },

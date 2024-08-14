@@ -1,6 +1,6 @@
-import { detectChanges } from "@/entrypoints/content/lib/detect-changes";
 import { injectMagicButton } from "@/entrypoints/content/lib/inject-magic-button";
 import "./app.css";
+import { appendReplies } from "@/entrypoints/content/lib/tweet-reply";
 
 export default defineContentScript({
   matches: ["*://*.x.com/*", "*://*.twitter.com/*"],
@@ -9,7 +9,7 @@ export default defineContentScript({
 
     const callback = () => {
       // Check for the specific element 'timelineDiv'
-      detectChanges();
+      appendReplies();
       injectMagicButton();
     };
 
