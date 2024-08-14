@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/entrypoints/content/lib/utils.ts";
 
 function Skeleton({
   className,
@@ -6,7 +6,7 @@ function Skeleton({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={clsx("animate-pulse rounded-md bg-primary/10", className)}
+      className={cn("animate-pulse rounded-md bg-primary/10", className)}
       {...props}
     />
   );

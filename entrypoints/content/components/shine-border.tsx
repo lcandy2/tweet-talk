@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/entrypoints/content/lib/utils.ts";
 
 type TColorProp = string | string[];
 
@@ -45,7 +45,7 @@ export default function ShineBorder({
           "--border-radius": `${borderRadius}px`,
         } as React.CSSProperties
       }
-      className={clsx(
+      className={cn(
         "relative min-h-[60px] w-fit min-w-[300px] place-items-center rounded-[--border-radius] bg-white p-3 text-black dark:bg-black dark:text-white",
         className,
       )}
