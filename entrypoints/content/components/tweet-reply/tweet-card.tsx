@@ -16,6 +16,7 @@ import {
   getImgName,
   TweetData,
 } from "@/entrypoints/content/lib/tweet-reply";
+import React from "react";
 
 interface TweetCardProps {
   element: Element;
@@ -106,18 +107,18 @@ export function TweetCard({ element }: TweetCardProps) {
             {!isFinished && <TweetCardSkeleton />}
             {repliedMessage.length !== 0 &&
               repliedMessage.map((message: any, index) => (
-                <>
+                <React.Fragment key={`message-${message.role}-${index}`}>
                   {index >= 1 && repliedMessage.length > 1 && (
                     <Separator
-                      key={`seprator-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+                      key={`separator-${message.role}-${index}`}
                     />
                   )}
                   <TweetCardContent
-                    key={`content-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+                    key={`content-${message.role}-${index}`}
                     aiName={message.role}
                     aiContent={message.reply}
                   />
-                </>
+                </React.Fragment>
               ))}
             <p className="text-sm w-full font-light text-gray-400 text-end">
               presented by{" "}

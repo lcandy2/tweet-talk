@@ -40,7 +40,7 @@ export function appendReplies() {
     articleParentElement.append(rootElement);
     ReactDOM.createRoot(rootElement).render(
       <React.StrictMode>
-        <TweetCard element={articleCoreContent} />
+        <TweetCard key={`tweet-${Date.now()}-${Math.random()}`} element={articleCoreContent} />
       </React.StrictMode>,
     );
   });
