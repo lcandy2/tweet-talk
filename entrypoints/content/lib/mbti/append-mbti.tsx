@@ -12,14 +12,15 @@ function appendMBTILabel() {
   const nameDiv = document.querySelector(
     "div.css-175oi2r.r-18u37iz.r-1w6e6rj.r-6gpygo",
   );
-  const existDiv = nameDiv?.querySelector("#ai-tweet-mbti-label");
+  const id = "ai-tweet-mbti-label";
+  const existDiv = nameDiv?.querySelector(`#${id}`);
   if (!nameDiv || existDiv) {
     return;
   }
 
   // Create a new div element
   const mbtiDiv = document.createElement("div");
-  mbtiDiv.id = "ai-tweet-mbti-label";
+  mbtiDiv.id = id;
   mbtiDiv.style.display = "content";
   mbtiDiv.className = "css-175oi2r";
 
@@ -44,7 +45,8 @@ function appendMBTIContent() {
   const targetDiv = document.querySelector(
     "div.css-175oi2r.r-3pj75a.r-ttdzmv.r-1ifxtd0",
   ) as HTMLDivElement | null;
-  const existDiv = targetDiv?.querySelector("#ai-tweet-mbti-content");
+  const id = "ai-tweet-mbti-content";
+  const existDiv = targetDiv?.querySelector(`#${id}`);
   if (!targetDiv || existDiv) {
     return;
   }
@@ -53,7 +55,7 @@ function appendMBTIContent() {
 
   // Create a new div element
   const mbtiDiv = document.createElement("div");
-  mbtiDiv.id = "ai-tweet-mbti-content";
+  mbtiDiv.id = id;
   mbtiDiv.style.display = "content";
   mbtiDiv.className = "css-175oi2r";
 
