@@ -10,7 +10,7 @@ export interface TweetData {
   images: string[];
 }
 
-export function extractData(element: Element): TweetData {
+export function extractTweetData(element: Element): TweetData {
   const content =
     element.querySelector(
       "div.css-146c3p1.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-1ttztb7.r-qvutc0",
@@ -51,12 +51,12 @@ export function extractData(element: Element): TweetData {
   return data;
 }
 
-export function exportDatas(element: Element) {
+export function exportTweetDatas(element: Element) {
   const existingDataList = JSON.parse(
     localStorage.getItem("tweetTalk-dataList") || "[]",
   );
 
-  const tweetData = extractData(element);
+  const tweetData = extractTweetData(element);
 
   if (
     existingDataList.find(

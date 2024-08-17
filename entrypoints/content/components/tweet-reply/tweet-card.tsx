@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import {
-  extractData,
-  TweetData,
-} from "@/entrypoints/content/lib/data-analysis.ts";
-import ShineBorder from "@/entrypoints/content/components/shine-border.tsx";
-import { API_AI_TWEET } from "@/entrypoints/content/lib/config.ts";
+import ShineBorder from "@/entrypoints/components/magicui/shine-border.tsx";
 import { sendMessage } from "@/entrypoints/background/messaging.ts";
-import { Card } from "@/entrypoints/content/components/ui/card.tsx";
+import { Card } from "@/entrypoints/components/ui/card.tsx";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/entrypoints/content/components/ui/avatar.tsx";
-import { Separator } from "@/entrypoints/content/components/ui/separator.tsx";
-import { Skeleton } from "@/entrypoints/content/components/ui/skeleton.tsx";
+} from "@/entrypoints/components/ui/avatar.tsx";
+import { Separator } from "@/entrypoints/components/ui/separator.tsx";
+import { Skeleton } from "@/entrypoints/components/ui/skeleton.tsx";
 import { localExtStorage } from "@webext-core/storage";
-import { getImgName } from "@/entrypoints/content/lib/get-img-name.ts";
+import {
+  API_AI_TWEET,
+  extractTweetData,
+  getImgName,
+  TweetData,
+} from "@/entrypoints/content/lib/tweet-reply";
+import React from "react";
 
 interface TweetCardProps {
   element: Element;
@@ -29,7 +30,7 @@ export function TweetCard({ element }: TweetCardProps) {
 
   useEffect(() => {
     setTimeout(() => {
-      const data = extractData(element);
+      const data = extractTweetData(element);
       if (data) {
         setTweetData(data);
       }
@@ -106,18 +107,16 @@ export function TweetCard({ element }: TweetCardProps) {
             {!isFinished && <TweetCardSkeleton />}
             {repliedMessage.length !== 0 &&
               repliedMessage.map((message: any, index) => (
-                <>
+                <React.Fragment key={`message-${message.role}-${index}`}>
                   {index >= 1 && repliedMessage.length > 1 && (
-                    <Separator
-                      key={`seprator-${message.role}-${message.reply.slice(0, 5)}-${index}`}
-                    />
+                    <Separator key={`separator-${message.role}-${index}`} />
                   )}
                   <TweetCardContent
-                    key={`content-${message.role}-${message.reply.slice(0, 5)}-${index}`}
+                    key={`content-${message.role}-${index}`}
                     aiName={message.role}
                     aiContent={message.reply}
                   />
-                </>
+                </React.Fragment>
               ))}
             <p className="text-sm w-full font-light text-gray-400 text-end">
               presented by{" "}

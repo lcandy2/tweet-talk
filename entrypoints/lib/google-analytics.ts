@@ -1,7 +1,7 @@
 import { localExtStorage } from "@webext-core/storage";
 
-const GA_ENDPOINT = 'https://www.google-analytics.com/mp/collect';
-const GA_DEBUG_ENDPOINT = 'https://www.google-analytics.com/debug/mp/collect';
+const GA_ENDPOINT = "https://www.google-analytics.com/mp/collect";
+const GA_DEBUG_ENDPOINT = "https://www.google-analytics.com/debug/mp/collect";
 
 // Get via https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
 const MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
@@ -32,11 +32,11 @@ class Analytics {
   // Stores client id in local storage to keep the same client id as long as
   // the extension is installed.
   private async getOrCreateClientId(): Promise<string> {
-    let { clientId } = await localExtStorage.getItem('clientId');
+    let { clientId } = await localExtStorage.getItem("clientId");
     if (!clientId) {
       // Generate a unique client ID, the actual value is not relevant
       clientId = self.crypto.randomUUID();
-      await localExtStorage.setItem('clientId', { clientId });
+      await localExtStorage.setItem("clientId", { clientId });
     }
     return clientId;
   }
@@ -45,7 +45,7 @@ class Analytics {
   // the previous one has expired.
   private async getOrCreateSessionId(): Promise<string> {
     // Use storage.session because it is only in memory
-    let { sessionData } = await localExtStorage.getItem('sessionData');
+    let { sessionData } = await localExtStorage.getItem("sessionData");
     const currentTimeInMs = Date.now();
     // Check if session exists and is still valid
     if (sessionData && sessionData.timestamp) {
@@ -58,22 +58,25 @@ class Analytics {
       } else {
         // Update timestamp to keep session alive
         sessionData.timestamp = currentTimeInMs;
-        await localExtStorage.setItem('sessionData', { sessionData });
+        await localExtStorage.setItem("sessionData", { sessionData });
       }
     }
     if (!sessionData) {
       // Create and store a new session
       sessionData = {
         session_id: currentTimeInMs.toString(),
-        timestamp: currentTimeInMs.toString()
+        timestamp: currentTimeInMs.toString(),
       };
-      await localExtStorage.setItem('sessionData', { sessionData });
+      await localExtStorage.setItem("sessionData", { sessionData });
     }
     return sessionData.session_id;
   }
 
   // Fires an event with optional params. Event names must only include letters and underscores.
-  async fireEvent(name: string, params: Record<string, any> = {}):Promise<void> {
+  async fireEvent(
+    name: string,
+    params: Record<string, any> = {},
+  ): Promise<void> {
     // Configure session id and engagement time if not present, for more details see:
     // https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports
     if (!params.session_id) {
@@ -89,43 +92,50 @@ class Analytics {
           this.debug ? GA_DEBUG_ENDPOINT : GA_ENDPOINT
         }?measurement_id=${MEASUREMENT_ID}&api_secret=${API_SECRET}`,
         {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify({
             client_id: await this.getOrCreateClientId(),
             events: [
               {
                 name,
-                params
-              }
-            ]
-          })
-        }
+                params,
+              },
+            ],
+          }),
+        },
       );
       if (!this.debug) {
         return;
       }
       console.log(await response.text());
     } catch (e) {
-      console.error('Google Analytics request failed with an exception', e);
+      console.error("Google Analytics request failed with an exception", e);
     }
   }
 
   // Fire a page view event.
-  async firePageViewEvent(pageTitle: string, pageLocation: string, additionalParams: Record<string, any> = {}): Promise<void> {
-    return this.fireEvent('page_view', {
+  async firePageViewEvent(
+    pageTitle: string,
+    pageLocation: string,
+    additionalParams: Record<string, any> = {},
+  ): Promise<void> {
+    return this.fireEvent("page_view", {
       page_title: pageTitle,
       page_location: pageLocation,
-      ...additionalParams
+      ...additionalParams,
     });
   }
 
   // Fire an error event.
-  async fireErrorEvent(error: Error, additionalParams: Record<string, any> = {}): Promise<void>{
+  async fireErrorEvent(
+    error: Error,
+    additionalParams: Record<string, any> = {},
+  ): Promise<void> {
     // Note: 'error' is a reserved event name and cannot be used
     // see https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#reserved_names
-    return this.fireEvent('extension_error', {
+    return this.fireEvent("extension_error", {
       ...this.serializeError(error),
-      ...additionalParams
+      ...additionalParams,
     });
   }
 
@@ -133,9 +143,9 @@ class Analytics {
     return {
       name: error.name,
       message: error.message,
-      stack: error.stack
+      stack: error.stack,
     };
   }
 }
-``
+``;
 export default new Analytics();

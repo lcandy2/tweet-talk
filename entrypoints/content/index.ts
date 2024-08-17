@@ -1,5 +1,6 @@
-import { detectChanges } from "@/entrypoints/content/lib/detect-changes";
 import "./app.css";
+import { appendReplies } from "@/entrypoints/content/lib/tweet-reply";
+import { appendMBTI } from "./lib/mbti/append-mbti";
 
 export default defineContentScript({
   matches: ["*://*.x.com/*", "*://*.twitter.com/*"],
@@ -8,7 +9,9 @@ export default defineContentScript({
 
     const callback = () => {
       // Check for the specific element 'timelineDiv'
-      detectChanges();
+      appendReplies();
+      appendMBTI();
+      // injectMagicButton();
     };
 
     const observer = new MutationObserver(callback);
