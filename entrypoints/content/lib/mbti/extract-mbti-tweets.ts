@@ -1,16 +1,25 @@
-export async function extractTweetsWithScroll() {
-  const tweets = [];
-  const seenTweetIds = new Set();
-  const minTweets = 3; // 设置最小推文数
+export interface MBTITweetData {
+  tweetId: string;
+  content: string;
+  author: string;
+  authorId: string;
+  time: string;
+  images: string[];
+}
+
+export async function extractMBTITweetsWithScroll(): Promise<MBTITweetData[]> {
+  const tweets: MBTITweetData[] = [];
+  const seenTweetIds = new Set<string>();
+  const minTweets = 3;
   let noNewTweetsCount = 0;
-  const maxNoNewTweets = 5; // 连续5次没有新推文就停止
+  const maxNoNewTweets = 5;
 
   console.log("开始提取推文...");
 
-  // 获取当前页面的用户名
-  const pageUsername = document.querySelector(
+  const pageUsernameElement = document.querySelector<HTMLElement>(
     'div[data-testid="UserName"] div[dir="ltr"] span',
-  )?.textContent;
+  );
+  const pageUsername = pageUsernameElement?.textContent ?? "";
   if (!pageUsername) {
     console.log(
       "Couldn't find the page username. Make sure you're on a user's profile page.",
@@ -19,20 +28,26 @@ export async function extractTweetsWithScroll() {
   }
   console.log("当前页面用户名:", pageUsername);
 
-  function extractSingleTweet(element) {
+  function extractSingleTweet(element: Element): MBTITweetData {
     const content =
-      element.querySelector('div[data-testid="tweetText"]')?.textContent || "";
+      element.querySelector<HTMLElement>('div[data-testid="tweetText"]')
+        ?.textContent ?? "";
     const author =
-      element.querySelector('div[data-testid="User-Name"] a > div > div')
-        ?.textContent || "";
+      element.querySelector<HTMLElement>(
+        'div[data-testid="User-Name"] a > div > div',
+      )?.textContent ?? "";
     const authorId =
-      element.querySelector('div[data-testid="User-Name"] a:last-child')
-        ?.textContent || "";
-    const time = element.querySelector("time")?.getAttribute("datetime") || "";
+      element.querySelector<HTMLElement>(
+        'div[data-testid="User-Name"] a:last-child',
+      )?.textContent ?? "";
+    const time =
+      element
+        .querySelector<HTMLTimeElement>("time")
+        ?.getAttribute("datetime") ?? "";
 
-    const images = Array.from(element.querySelectorAll('img[alt="Image"]')).map(
-      (img) => img.src,
-    );
+    const images = Array.from(
+      element.querySelectorAll<HTMLImageElement>('img[alt="Image"]'),
+    ).map((img) => img.src);
 
     const tweetId = `tweet-${authorId}-${time}-${content.slice(0, 14)}`;
 
@@ -46,7 +61,7 @@ export async function extractTweetsWithScroll() {
     return { tweetId, content, author, authorId, time, images };
   }
 
-  async function smoothScroll() {
+  async function smoothScroll(): Promise<void> {
     console.log("滚动页面...");
     const currentPosition = window.pageYOffset;
     const newPosition = currentPosition + window.innerHeight * 1.5;
@@ -57,7 +72,7 @@ export async function extractTweetsWithScroll() {
     await new Promise((resolve) => setTimeout(resolve, 300));
   }
 
-  async function scrollToTop() {
+  async function scrollToTop(): Promise<void> {
     console.log("滚动回顶部...");
     window.scrollTo(0, 0);
     await new Promise((resolve) => setTimeout(resolve, 300));
@@ -72,7 +87,7 @@ export async function extractTweetsWithScroll() {
     noNewTweetsCount < maxNoNewTweets
   ) {
     const initialTweetCount = tweets.length;
-    const tweetElements = document.querySelectorAll(
+    const tweetElements = document.querySelectorAll<HTMLElement>(
       'article[data-testid="tweet"]',
     );
 

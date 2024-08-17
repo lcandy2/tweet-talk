@@ -1,4 +1,3 @@
-import { injectMagicButton } from "@/entrypoints/content/lib/inject-magic-button";
 import "./app.css";
 import { appendReplies } from "@/entrypoints/content/lib/tweet-reply";
 import { appendMBTI } from "./lib/mbti/append-mbti";

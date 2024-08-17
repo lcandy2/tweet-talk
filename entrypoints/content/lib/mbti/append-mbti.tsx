@@ -1,14 +1,50 @@
 import ReactDOM from "react-dom/client";
 import React from "react";
-import { MBTILabel } from "@/entrypoints/content/components/mbti/mbti-label.tsx";
-import { MBTICard } from "../../components/mbti/mbti-card";
+import { MBTICard, MBTILabel } from "@/entrypoints/content/components/mbti";
+import { getMBTIUserUUID } from "@/entrypoints/content/lib/mbti";
 
 export function appendMBTI() {
-  appendMBTILabel();
-  appendMBTIContent();
+  let currentUrl = window.location.href;
+
+  const removeExistingMBTI = () => {
+    const labelElement = document.getElementById("ai-tweet-mbti-label");
+    const contentElement = document.getElementById("ai-tweet-mbti-content");
+
+    if (labelElement) {
+      labelElement.remove();
+    }
+
+    if (contentElement) {
+      contentElement.remove();
+    }
+  };
+
+  const handleUrlChange = () => {
+    if (window.location.href !== currentUrl) {
+      currentUrl = window.location.href;
+      removeExistingMBTI();
+    }
+  };
+
+  // Set up a MutationObserver to watch for URL changes
+  const observer = new MutationObserver(handleUrlChange);
+  observer.observe(document.querySelector("body")!, {
+    childList: true,
+    subtree: true,
+  });
+
+  // Clean up the observer when the component unmounts
+  window.addEventListener("beforeunload", () => {
+    observer.disconnect();
+  });
+
+  const userUUID = getMBTIUserUUID();
+
+  appendMBTILabel(userUUID);
+  appendMBTIContent(userUUID);
 }
 
-function appendMBTILabel() {
+function appendMBTILabel(uuid: string) {
   const nameDiv = document.querySelector(
     "div.css-175oi2r.r-18u37iz.r-1w6e6rj.r-6gpygo",
   );
@@ -25,7 +61,9 @@ function appendMBTILabel() {
   mbtiDiv.className = "css-175oi2r";
 
   // Find the target position and insert the new element
-  const targetElement = nameDiv.children[0];
+  const targetElement =
+    nameDiv.children[0].children[0].children[0].children[0].children[0]
+      .children[0];
   if (targetElement && targetElement.parentNode) {
     if (targetElement.nextSibling) {
       targetElement.parentNode.insertBefore(mbtiDiv, targetElement.nextSibling);
@@ -36,12 +74,12 @@ function appendMBTILabel() {
 
   ReactDOM.createRoot(mbtiDiv).render(
     <React.StrictMode>
-      <MBTILabel />
+      <MBTILabel uuid={uuid} />
     </React.StrictMode>,
   );
 }
 
-function appendMBTIContent() {
+function appendMBTIContent(uuid: string) {
   const targetDiv = document.querySelector(
     "div.css-175oi2r.r-3pj75a.r-ttdzmv.r-1ifxtd0",
   ) as HTMLDivElement | null;
@@ -63,7 +101,33 @@ function appendMBTIContent() {
 
   ReactDOM.createRoot(mbtiDiv).render(
     <React.StrictMode>
-      <MBTICard />
+      <MBTICard uuid={uuid} />
     </React.StrictMode>,
   );
+}
+
+function removeMBTIElements() {
+  const mbtiLabel = document.querySelector("#ai-tweet-mbti-label");
+  const mbtiContent = document.querySelector("#ai-tweet-mbti-content");
+  const mbtiIFrame = document.querySelector("#ai-tweet-mbti-data-iframe");
+
+  mbtiLabel?.remove();
+  mbtiContent?.remove();
+  mbtiIFrame?.remove();
+}
+
+function appendMBTIDataIFrame() {
+  const targetDiv = document.querySelector(
+    "div.css-175oi2r.r-3pj75a.r-ttdzmv.r-1ifxtd0",
+  ) as HTMLDivElement | null;
+  const id = "ai-tweet-mbti-data-iframe";
+  const existDiv = targetDiv?.querySelector(`#${id}`);
+  if (!targetDiv || existDiv) {
+    return;
+  }
+
+  const iframe = document.createElement("iframe");
+  iframe.id = "ai-tweet-mbti-data-iframe";
+  iframe.src = window.location.href;
+  targetDiv.appendChild(iframe);
 }

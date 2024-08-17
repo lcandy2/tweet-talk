@@ -109,9 +109,7 @@ export function TweetCard({ element }: TweetCardProps) {
               repliedMessage.map((message: any, index) => (
                 <React.Fragment key={`message-${message.role}-${index}`}>
                   {index >= 1 && repliedMessage.length > 1 && (
-                    <Separator
-                      key={`separator-${message.role}-${index}`}
-                    />
+                    <Separator key={`separator-${message.role}-${index}`} />
                   )}
                   <TweetCardContent
                     key={`content-${message.role}-${index}`}

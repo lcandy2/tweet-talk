@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/entrypoints/lib/utils.ts";
-import { motion, type AnimationProps } from "framer-motion";
+import { motion, MotionProps, type AnimationProps } from "framer-motion";
 
 const animationProps = {
   initial: { "--x": "100%", scale: 0.8 },
@@ -23,13 +23,18 @@ const animationProps = {
   },
 } as AnimationProps;
 
-export default function MbtiAnimatedGradientLabelButton({
+type MBTIAnimatedGradientLabelButtonProps =
+  ButtonHTMLAttributes<HTMLButtonElement> &
+    MotionProps & {
+      children: ReactNode;
+      className?: string;
+    };
+
+export default function MBTIAnimatedGradientLabelButton({
   children,
   className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+  ...props
+}: MBTIAnimatedGradientLabelButtonProps) {
   return (
     <motion.button
       className={cn(
@@ -37,11 +42,11 @@ export default function MbtiAnimatedGradientLabelButton({
         className,
       )}
       {...animationProps}
+      {...props}
     >
       <div
         className={`absolute inset-0 block h-full w-full animate-gradient bg-gradient-to-r from-[#4298B4]/50 via-[#33A474]/50 to-[#886199]/50 bg-[length:var(--bg-size)_100%] p-[1px] ![mask-composite:subtract] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]`}
       />
-
       {children}
     </motion.button>
   );
