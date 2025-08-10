@@ -58,12 +58,10 @@ export function TweetCard({ element }: TweetCardProps) {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                tweet_uuid: tweetData.tweetId,
                 tweet_content: tweetData.content,
-                tweet_created_time: tweetData.time,
-                author_nick_name: tweetData.author,
-                author_id: tweetData.authorId,
                 wanted_roles: [],
+                author_id: tweetData.authorId,
+                author_nick_name: tweetData.author,
               }),
             },
           });

@@ -7,48 +7,65 @@ export interface TweetData {
   author: string;
   authorId: string;
   time: string;
-  images: string[];
 }
 
 export function extractTweetData(element: Element): TweetData {
-  const content =
+  let content =
     element.querySelector(
       "div.css-146c3p1.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-1ttztb7.r-qvutc0",
     )?.textContent || "";
-  const author =
+  if (!content) {
+    content =
+      element.querySelector<HTMLElement>('div[data-testid="tweetText"]')
+        ?.textContent ?? "";
+  }
+
+  let author =
     element.querySelector(
       "div.css-146c3p1.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe",
     )?.textContent || "";
-  const authorId =
+  if (!author) {
+    author =
+      element.querySelector<HTMLElement>(
+        'div[data-testid="User-Name"] a > div > div',
+      )?.textContent ?? "";
+  }
+
+  let authorId =
     element.querySelector(
       "div.css-146c3p1.r-dnmrzs.r-1udh08x.r-3s2u2q.r-bcqeeo.r-1ttztb7.r-qvutc0",
     )?.textContent || "";
-  const time =
+  if (!authorId) {
+    authorId =
+      element.querySelector<HTMLElement>(
+        'div[data-testid="User-Name"] a:last-child',
+      )?.textContent ?? "";
+  }
+
+  let time =
     element
       .querySelector("div.css-175oi2r.r-18u37iz.r-1q142lx > a > time")
       ?.getAttribute("datetime") || "time";
-  const images: string[] = [];
-  const imageElements = document.querySelectorAll(
-    'div[aria-label="Image"].css-175oi2r.r-1mlwlqe.r-1udh08x.r-417010.r-1p0dtai.r-1d2f490.r-u8s1d.r-zchlnj.r-ipm5af > img',
-  );
-  imageElements.forEach((imageElement) => {
-    images.push(imageElement.getAttribute("src") || "");
-  });
+  if (!time) {
+    time =
+      element
+        .querySelector<HTMLTimeElement>("time")
+        ?.getAttribute("datetime") ?? "";
+  }
+
   const tweetId = `tweet-${authorId}-${time}-${content.slice(0, 10)}`;
+
   const NAMESPACE_UUID = "1b671a64-40d5-491e-99b0-da01ff1f3341";
   const tweetUUID = uuidv5(tweetId, NAMESPACE_UUID);
 
-  const data: TweetData = {
+  return {
     tweetId,
     tweetUUID,
     content,
     author,
     authorId,
     time,
-    images,
   };
-
-  return data;
 }
 
 export function exportTweetDatas(element: Element) {

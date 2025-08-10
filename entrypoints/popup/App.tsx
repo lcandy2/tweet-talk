@@ -42,12 +42,10 @@ function App() {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                tweet_uuid: "custom",
                 tweet_content: inputValue,
-                tweet_created_time: "now",
-                author_nick_name: "user",
-                author_id: "user",
                 wanted_roles: [],
+                author_id: "custom",
+                author_nick_name: "user",
               }),
             },
           });

@@ -10,7 +10,8 @@ export default defineContentScript({
     const callback = () => {
       // Check for the specific element 'timelineDiv'
       appendReplies();
-      appendMBTI();
+      // TODO Fix it and then enable
+      // appendMBTI();
       // injectMagicButton();
     };
 
