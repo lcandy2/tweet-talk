@@ -2,7 +2,7 @@
   "name": "tweet-talk",
   "description": "Creative replies by AI celebrities, make twitter fun again.",
   "private": true,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
